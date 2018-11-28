@@ -1,6 +1,6 @@
 {
 "287BD6060400002B" : "Katlamaja 2",
-"28FF0AEE10140034" : "Eyrytmisaal",
+"28FF0AEE10140034" : "Eyrytmiasaal",
 "28FF461F10140002" : "Pealevool",
 "28FF494E11140091" : "8. Klass",
 "28FF74642C0400B0" : "Paak keskkel",
@@ -18,6 +18,6 @@
 "28FFF6402D04002D" : "9. Klass",
 "DHT11_humidity" : "Katlamaja niiskus",
 "DHT11_temp" : "Katlamaja temperatuur",
-"Power" : "Majja minev v6imsus"
+"Power" : "Majja minev v6imsus",
 "boiler_temp" : "Katla suitusgaasi temperatuur"
 }
