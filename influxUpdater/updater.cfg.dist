@@ -1,0 +1,35 @@
+[main]
+sleep = 60
+cms_url = CMS_API_URL
+
+### LOGGING ###
+[loggers]
+keys = root
+
+[handlers]
+keys = logfile,stdout
+
+[formatters]
+keys = rootformatter
+
+
+[logger_root]
+qualname=root
+level=DEBUG
+#to enable/disable console logging add/remove here stdout
+handlers=logfile
+
+[handler_stdout]
+class = StreamHandler
+level = DEBUG
+formatter=rootformatter
+args = (sys.stdout,)
+
+[handler_logfile]
+class=handlers.RotatingFileHandler
+level=DEBUG
+formatter=rootformatter
+args=('/tmp/updater.log','w',10000,1)
+
+[formatter_rootformatter]
+format = %(module)s %(asctime)s %(levelname)s %(message)s
