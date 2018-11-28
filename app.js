@@ -4,7 +4,33 @@ const path = require('path');
 const os = require('os');
 const bodyParser = require('body-parser');
 const app = express();
-const influx = new Influx.InfluxDB('http://127.0.0.1:8086/telegraf');
+const influx = new Influx.InfluxDB({
+ host: 'localhost',
+ database: 'temps',
+ schema: [
+   {
+     measurement: 'rosma_temps',
+     fields: {
+       value: Influx.FieldType.FLOAT
+     },
+     tags: [
+       'sensor'
+     ]
+   }
+ ]
+}
+)
+var cors = require('cors');
+var whitelist = ['http://kontor.rosmakool.ee:8080', 'https://rosmakool.ee/temps/']
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -22,16 +48,19 @@ influx.getMeasurements()
   })
   .catch(error => console.log({ error }));
 
-app.get('/api/v1/usage', (request, response) => {
+app.get('/api/v1/temps',cors(corsOptions), function (request, response) {
+  var id = request.query.id;
   influx.query(`
-    select mean("usage_user") as "mean_usage_user",
-    mean("usage_system") as "mean_usage_system" from cpu
-    where time > now() - 1h and
-    host = ${Influx.escape.stringLit(os.hostname())}
-    group by time(10s)
+    SELECT * FROM rosma_temps
+    where time > now() - 6h
+    group by sensor
     order by time desc
-    limit 200
     `)
     .then(result => response.status(200).json(result))
     .catch(error => response.status(500).json({ error }));
+});
+
+app.get('/api/v1/labels',cors(corsOptions), function (request, response) {
+   var labels = require("./labels.json");
+   response.send(JSON.stringify(labels));
 });

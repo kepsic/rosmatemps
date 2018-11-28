@@ -4,21 +4,25 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="refresh" content="300">
     <link rel="stylesheet" type="text/css" href="styles.css">
-    <title>Visualizing Data from InfluxDB with Plotly</title>
+    <title>Rosma temperatuurid</title>
   </head>
   <body>
     <header>
-      <h1 class="title">Visualizing Data from InfluxDB with Plotly.js, a JavaScript Graphing Library</h1>
+      <h1 class="title">Rosma temperatuurid</h1>
     </header>
     <main>
-      <h2 class="graphs-title">My Time Series Graphs</h2>
+      <!-- <h2 class="graphs-title">Temps</h2>-->
+      <div id="chart_div"></div>
+
       <div id="graphs-container">
         <!-- Append graph here -->
       </div>
     </main>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="scripts.js"></script>
   </body>
 </html>
